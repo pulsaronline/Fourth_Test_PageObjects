@@ -18,7 +18,7 @@ dependencies {
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = "utf8"
+    options.encoding = 'utf8'
 }
 
 test {
@@ -27,12 +27,12 @@ test {
 
 task one_test(type: Test) {
     useJUnitPlatform() {
-        includeTags "one"
+        includeTags 'one'
     }
 }
 
 task without_one_test(type: Test) {
     useJUnitPlatform() {
-        excludeTags "one"
+        excludeTags 'one'
     }
 }
