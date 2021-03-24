@@ -19,7 +19,7 @@ public class SearchTests {
 
     @Test
    void selenideSearchTest() {
-    StudentRegistrationFormPage studentRegistrationFormPage = new StudentRegistrationFormPage();
+    //StudentRegistrationFormPage studentRegistrationFormPage = new StudentRegistrationFormPage();
 
         //open target page
 
