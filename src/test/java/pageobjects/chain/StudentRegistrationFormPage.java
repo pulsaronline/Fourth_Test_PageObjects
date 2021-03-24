@@ -1,48 +1,41 @@
-package tests;
-
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+package pageobjects.chain;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class SearchTests {
+public class StudentRegistrationFormPage {
+    //bad practice to store test data in pageObject
+    //initialize variables
 
-    @BeforeAll
-    public static void setup() {
-        //use fullscreen
-        Configuration.startMaximized = true;
-    }
+    private String firstName = "Jason",
+            lastName = "Born",
+            gender = "Male",
+            email = "pulsar@hotmail.com",
+            phoneNumber = "9253339898",
+            month = "4",
+            year = "1977",
+            day = "10",
+            subject1 = "Computer Science",
+            subject2 = "Math",
+            hobbie1 = "Sports",
+            hobbie2 = "Music",
+            filename = "1.png",
+            address = "LA, Oak str., 13",
+            state = "NCR",
+            city = "Noida",
+            pageHeader = "Thanks for submitting the form";
 
-    @Test
-    void selenideSearchTest() {
-
+    public StudentRegistrationFormPage openPage() {
         //open target page
 
         open("https://demoqa.com/automation-practice-form");
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
 
-        //initialize variables
-
-        String firstName = "Jason";
-        String lastName = "Born";
-        String gender = "Male";
-        String email = "pulsar@hotmail.com";
-        String phoneNumber = "9253339898";
-        String month = "4";
-        String year = "1977";
-        String day = "10";
-        String subject1 = "Computer Science";
-        String subject2 = "Math";
-        String hobbie1 = "Sports";
-        String hobbie2 = "Music";
-        String filename = "1.png";
-        String address = "LA, Oak str., 13";
-        String state = "NCR";
-        String city = "Noida";
-        String pageHeader = "Thanks for submitting the form";
+        return this;
+    }
+    public StudentRegistrationFormPage fillForm() {
         //FILL OUT THE FORM
 
         //type name, surname, email, gender, phone number
@@ -53,13 +46,7 @@ public class SearchTests {
         $(byText(gender)).click();
         $("#userNumber").setValue(phoneNumber);
 
-        //type date of birth
-
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue(month);    //month
-        $(".react-datepicker__year-select").selectOptionByValue(year);      //year
-        $(".react-datepicker__month").$(byText(day)).click();               //day
-
+        setDate(year, month, day);
         //type subject
 
         $("#subjectsContainer").click();
@@ -94,6 +81,20 @@ public class SearchTests {
 
         $("#submit").pressEnter();
 
+        return this;
+    }
+
+    public void setDate(String year, String month, String day) {
+
+        //type date of birth
+
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOptionByValue(month);    //month
+        $(".react-datepicker__year-select").selectOptionByValue(year);      //year
+        $(".react-datepicker__month").$(byText(day)).click();               //day
+    }
+
+    public StudentRegistrationFormPage checkData() {
         //CHECK THE FORM
 
         //check the header, should be "Thanks for submitting the form"
@@ -119,5 +120,7 @@ public class SearchTests {
                 text(address),
                 text(state),
                 text(city));
+
+        return this;
     }
 }
