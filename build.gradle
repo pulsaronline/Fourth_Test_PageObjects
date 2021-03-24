@@ -1,3 +1,4 @@
+
 plugins {
     id 'java-library'
 }
@@ -6,14 +7,32 @@ repositories {
     mavenCentral()
 }
 
+def selenideVersion = "5.19.8",
+    junitVersion = "5.7.1"
+
 dependencies {
-    testImplementation "com.codeborne:selenide:5.19.0" //selenide core
-    testImplementation "org.slf4j:slf4j-simple:1.7.29" //selenide commandline full report
-    testImplementation "io.qameta.allure:allure-selenide:2.13.8" //allure core
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0" //Junit5 API
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0" //Junit5 core
+    testImplementation (
+            "com.codeborne:selenide:5.19.0",
+            "org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "utf8"
 }
 
 test {
     useJUnitPlatform()
+}
+
+task one_test(type: Test) {
+    useJUnitPlatform() {
+        includeTags "one"
+    }
+}
+
+task without_one_test(type: Test) {
+    useJUnitPlatform() {
+        excludeTags "one"
+    }
 }
