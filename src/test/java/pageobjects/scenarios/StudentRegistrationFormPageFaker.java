@@ -1,51 +1,50 @@
-package pageobjects.steps;
+package pageobjects.scenarios;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
+
+import java.util.Locale;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class SearchTests {
+public class StudentRegistrationFormPageFaker {
+    //bad practice to store test data in pageObject
+    //initialize variables
+    Faker faker = new Faker();
+    FakeValuesService fakeValuesSevice = new FakeValuesService(
+    new Locale("ru"), new RandomService());
 
-    @BeforeAll
-    public static void setup() {
-        //use fullscreen
-        Configuration.startMaximized = true;
-    }
+    String firstName = faker.name().firstName();
+    String lastName = faker.name().lastName();
+    String gender = faker.dog().gender();
+    String email = faker.bothify("????##@mail.ru");
+    String phoneNumber = faker.number().digits(10);
+    String month = faker.toString().number().numberBetween(1, 12);
+    String year = "1977";
+    String day = "10";
+    String subject1 = "Computer Science";
+    String subject2 = "Math";
+    String hobbie1 = "Sports";
+    String hobbie2 = "Music";
+    String filename = "1.png";
+    String address = "LA, Oak str., 13";
+    String state = "NCR";
+    String city = "Noida";
+    String pageHeader = "Thanks for submitting the form";
 
-    @Test
-   void selenideSearchTest() {
-    //StudentRegistrationFormPage studentRegistrationFormPage = new StudentRegistrationFormPage();
-
+    public void openPage() {
         //open target page
 
         open("https://demoqa.com/automation-practice-form");
-
-        //initialize variables
-
-        String firstName = "Jason";
-        String lastName = "Born";
-        String gender = "Male";
-        String email = "pulsar@hotmail.com";
-        String phoneNumber = "9253339898";
-        String month = "4";
-        String year = "1977";
-        String day = "10";
-        String subject1 = "Computer Science";
-        String subject2 = "Math";
-        String hobbie1 = "Sports";
-        String hobbie2 = "Music";
-        String filename = "1.png";
-        String address = "LA, Oak str., 13";
-        String state = "NCR";
-        String city = "Noida";
-        String pageHeader = "Thanks for submitting the form";
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+    }
+    public void fillForm() {
         //FILL OUT THE FORM
-        StudentRegistrationFormPage.checkPageHeader(pageHeader);
+
         //type name, surname, email, gender, phone number
 
         $("#firstName").setValue(firstName);
@@ -54,13 +53,7 @@ public class SearchTests {
         $(byText(gender)).click();
         $("#userNumber").setValue(phoneNumber);
 
-        //type date of birth
-
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue(month);    //month
-        $(".react-datepicker__year-select").selectOptionByValue(year);      //year
-        $(".react-datepicker__month").$(byText(day)).click();               //day
-
+        setDate(year, month, day);
         //type subject
 
         $("#subjectsContainer").click();
@@ -94,7 +87,19 @@ public class SearchTests {
         //submit the form
 
         $("#submit").pressEnter();
+    }
 
+    public void setDate(String year, String month, String day) {
+
+        //type date of birth
+
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOptionByValue(month);    //month
+        $(".react-datepicker__year-select").selectOptionByValue(year);      //year
+        $(".react-datepicker__month").$(byText(day)).click();               //day
+    }
+
+    public void checkData() {
         //CHECK THE FORM
 
         //check the header, should be "Thanks for submitting the form"
@@ -120,15 +125,5 @@ public class SearchTests {
                 text(address),
                 text(state),
                 text(city));
-    }
-
-    void openSearchPage() {
-         //open target page
-
-         open("https://demoqa.com/automation-practice-form");
-    }
-
-    void searchData(String searchDataText) {
-
     }
 }

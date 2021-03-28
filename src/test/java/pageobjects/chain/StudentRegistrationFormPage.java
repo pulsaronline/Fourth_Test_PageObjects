@@ -9,7 +9,8 @@ public class StudentRegistrationFormPage {
     //bad practice to store test data in pageObject
     //initialize variables
 
-    private String firstName = "Jason",
+    private
+            String firstName = "Jason",
             lastName = "Born",
             gender = "Male",
             email = "pulsar@hotmail.com",
