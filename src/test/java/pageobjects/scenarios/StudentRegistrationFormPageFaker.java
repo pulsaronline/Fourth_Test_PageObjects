@@ -23,7 +23,7 @@ public class StudentRegistrationFormPageFaker {
     String gender = faker.dog().gender();
     String email = faker.bothify("????##@mail.ru");
     String phoneNumber = faker.number().digits(10);
-    String month = faker.toString().number().numberBetween(1, 12);
+    String month = faker.number().numberBetween(1, 12);
     String year = "1977";
     String day = "10";
     String subject1 = "Computer Science";
