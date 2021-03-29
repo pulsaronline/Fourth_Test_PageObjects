@@ -1,4 +1,4 @@
-package pageobjects.scenarios;
+package pageobjects.scenarios.withoutFaker;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;

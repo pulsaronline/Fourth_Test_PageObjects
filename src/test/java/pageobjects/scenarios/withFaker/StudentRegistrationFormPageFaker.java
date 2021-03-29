@@ -1,4 +1,4 @@
-package pageobjects.scenarios;
+package pageobjects.scenarios.withFaker;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static pageobjects.scenarios.withFaker.FakerHelper.*;
 
 public class StudentRegistrationFormPageFaker {
     //bad practice to store test data in pageObject
@@ -23,22 +24,21 @@ public class StudentRegistrationFormPageFaker {
     String gender = faker.dog().gender();
     String email = faker.bothify("????##@mail.ru");
     String phoneNumber = faker.number().digits(10);
-    String month = faker.number().numberBetween(1, 12);
-    String year = "1977";
-    String day = "10";
+    String month = randomMonth();
+    String year = randomYear();
+    String day = randomDay();
     String subject1 = "Computer Science";
     String subject2 = "Math";
-    String hobbie1 = "Sports";
-    String hobbie2 = "Music";
+    String hobbie1 = randomHobbies();
+    String hobbie2 = randomHobbies();
     String filename = "1.png";
-    String address = "LA, Oak str., 13";
+    String address = faker.address().fullAddress();;
     String state = "NCR";
     String city = "Noida";
     String pageHeader = "Thanks for submitting the form";
 
     public void openPage() {
         //open target page
-
         open("https://demoqa.com/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
     }

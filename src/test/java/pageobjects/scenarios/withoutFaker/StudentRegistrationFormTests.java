@@ -1,4 +1,4 @@
-package pageobjects.scenarios;
+package pageobjects.scenarios.withoutFaker;
 
 import org.junit.jupiter.api.Test;
 
